@@ -1,5 +1,5 @@
-
-# Discord Bot with Spring Boot and JDA
+# Sprida
+## Discord Bot with Spring Boot and JDA
 
 A Discord bot built using [Spring Boot](https://spring.io/projects/spring-boot) and [JDA](https://github.com/DV8FromTheWorld/JDA), with PostgreSQL for data storage and Lombok for reduced boilerplate code.
 
