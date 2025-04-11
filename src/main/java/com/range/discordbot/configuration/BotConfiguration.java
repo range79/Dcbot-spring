@@ -1,7 +1,7 @@
 package com.range.discordbot.configuration;
 
+import com.range.discordbot.listener.AutoUserBanner;
 import com.range.discordbot.service.SlashCommands;
-import com.range.discordbot.listener.BannedUserJoinListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.Permission;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.security.auth.login.LoginException;
 import java.util.EnumSet;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.*;
@@ -27,25 +26,25 @@ import static net.dv8tion.jda.api.interactions.commands.OptionType.*;
 public class BotConfiguration {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final BannedUserJoinListener bannedUserJoinListener;
+    private final AutoUserBanner autoUserBanner;
     private final SlashCommands slashCommands;
     @Value(value = "${discord.bot.token}")
     private String token;
 
-    public BotConfiguration(BannedUserJoinListener bannedUserJoinListener, SlashCommands slashCommands) {
-        this.bannedUserJoinListener = bannedUserJoinListener;
+    public BotConfiguration(AutoUserBanner autoUserBanner, SlashCommands slashCommands) {
+        this.autoUserBanner = autoUserBanner;
         this.slashCommands = slashCommands;
     }
 
     @Bean
-    public JDA jda()throws LoginException {
+    public JDA jda() {
         try{
             logger.info("Initializing JDA");
             JDA jda= JDABuilder
                     .createDefault(token, EnumSet.of(GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_MEMBERS))
                     .build();
 
-            jda.addEventListener(slashCommands, bannedUserJoinListener);
+            jda.addEventListener(slashCommands, autoUserBanner);
             CommandListUpdateAction commands = jda.updateCommands();
             commands.addCommands(
                     Commands.slash("ban", "Ban a user from this server. Requires permission to ban users.")
@@ -89,6 +88,10 @@ public class BotConfiguration {
                             .addOption(STRING, "reason", "Why you unban this user?", false)
                             .setContexts(InteractionContextType.GUILD)
                             .setDefaultPermissions(DefaultMemberPermissions.DISABLED)
+            );
+            commands.addCommands(
+                    Commands.slash("info"," This method shows information about the bot, including the developer's details.")
+                            .setContexts(InteractionContextType.GUILD)
             );
             commands.queue();
             return jda;

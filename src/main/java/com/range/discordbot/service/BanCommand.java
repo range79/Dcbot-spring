@@ -22,7 +22,7 @@ public class BanCommand {
     }
     private final BannedUserRepo bannedUserRepo;
     private final Logger log = Logger.getLogger(BanCommand.class.getName());
-    @Value(value = "${discord.bot.banneduser.channelid}")
+    @Value(value = "${discord.bot.log.channelid}")
     private String channelid;
 
 
@@ -72,14 +72,16 @@ public class BanCommand {
                 .reason(reason) // audit-log ban reason (sets X-AuditLog-Reason header)
 
                 .flatMap(v->{
-                        // Ban işleminden sonra mesajı belirli bir kanala gönder
-                        TextChannel channel = event.getGuild().getTextChannelById(channelid);
-        if (channel != null) {
-            // chain a followup message after the ban is executed
-            return channel.sendMessage("Banned user " + user.getName() + " for reason: " + reason);
-        }
-        return event.getChannel().sendMessage("Ban failed or channel not found.");
-            })
+                    // Ban işleminden sonra mesajı belirli bir kanala gönder
+                    TextChannel channel = event.getGuild().getTextChannelById(channelid);
+                    if (channel != null) {
+                        // chain a followup message after the ban is executed
+                        return channel.sendMessage("Banned user " + user.getName() + " for reason: " + reason);
+                    }
+                    log.warning(event.getChannel().getId());
+                    return event.getChannel().sendMessage("Ban failed or channel not found.");
+
+                })
                 .queue();
 
 

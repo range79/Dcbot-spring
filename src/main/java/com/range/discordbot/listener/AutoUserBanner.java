@@ -14,28 +14,41 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class BannedUserJoinListener extends ListenerAdapter {
+public class AutoUserBanner extends ListenerAdapter {
+
+   /*
+    This class is designed to automatically ban a user if they have been previously banned,
+    and someone attempts to invite them to the server. It listens for attempts to invite banned users
+    and triggers a ban action, ensuring that banned users cannot rejoin or interact with the server.
+    This helps maintain the integrity of the server's community by preventing banned users from bypassing
+    their ban through invitations.
+*/
+
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private BannedUserRepo bannedUserRepo;
-    @Value(value = "${discord.bot.banneduser.channelid}")
+    @Value(value = "${discord.bot.log.channelid}")
     private String channelid;
 
-    public BannedUserJoinListener(BannedUserRepo bannedUserRepo) {
+    public AutoUserBanner(BannedUserRepo bannedUserRepo) {
         this.bannedUserRepo = bannedUserRepo;
     }
+
+
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        log.info("onGuildMemberJoin");
+
+
         String membertag = event.getMember().getUser().getName();
 
 
         try {
-            if (bannedUserRepo.existsBannedUserByName(membertag)) {
+            if (bannedUserRepo.existsBannedUserByTag(membertag)) {
                 Guild guild = event.getGuild();
                 guild.ban(event.getUser(),0 ,TimeUnit.DAYS).queue();
                 TextChannel channel = guild.getTextChannelById(channelid);
                 channel.sendMessage("Banned User: " + event.getUser().getAsTag()+" trying join to server").queue();
+                log.warn("Banned User: " + event.getUser().getAsTag()+" trying join to server");
             }
         }catch (Exception e){
             log.error("ban failed:"+e.getMessage());

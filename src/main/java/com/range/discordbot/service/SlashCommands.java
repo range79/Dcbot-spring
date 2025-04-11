@@ -18,12 +18,19 @@ public class SlashCommands extends ListenerAdapter {
     private final LeaveCommand leaveCommand;
     private final PruneCommand pruneCommand;
     private final UnBanCommand unbanCommand;
-    public SlashCommands(BanCommand banCommand, SayCommand sayCommand, LeaveCommand leaveCommand, PruneCommand pruneCommand,UnBanCommand unbanCommand) {
+    private final InfoCommand infoCommand;
+    public SlashCommands(BanCommand banCommand,
+                         SayCommand sayCommand,
+                         LeaveCommand leaveCommand,
+                         PruneCommand pruneCommand,
+                         UnBanCommand unbanCommand,
+                         InfoCommand infoCommand) {
         this.banCommand = banCommand;
         this.sayCommand = sayCommand;
         this.leaveCommand = leaveCommand;
         this.pruneCommand = pruneCommand;
         this.unbanCommand = unbanCommand;
+        this.infoCommand = infoCommand;
     }
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event)
@@ -49,6 +56,8 @@ public class SlashCommands extends ListenerAdapter {
             case "unban":
                 handleUnBanCommand(event);
                 break;
+            case "info":
+                handleInfocCommand(event);
             default:
                 event.reply("I can't handle that command right now :(").setEphemeral(true).queue();
         }
@@ -100,6 +109,9 @@ public class SlashCommands extends ListenerAdapter {
     private void handleSayCommand(SlashCommandInteractionEvent event) {
         String content = event.getOption("content").getAsString();
         sayCommand.execute(event, content);
+    }
+    private void handleInfocCommand(SlashCommandInteractionEvent event) {
+        infoCommand.execute(event);
     }
 
     private void handleLeaveCommand(SlashCommandInteractionEvent event) {
