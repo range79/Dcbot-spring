@@ -1,4 +1,4 @@
-package com.range.discordbot.service;
+package com.range.discordbot.commands;
 
 import com.range.discordbot.model.BannedUser;
 import com.range.discordbot.repo.BannedUserRepo;
@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -22,7 +23,7 @@ public class BanCommand {
     }
     private final BannedUserRepo bannedUserRepo;
     private final Logger log = Logger.getLogger(BanCommand.class.getName());
-    @Value(value = "${discord.bot.log.channelid}")
+    @Value(value = "${discord.bot.log.channel_id}")
     private String channelid;
 
 
@@ -59,7 +60,8 @@ public class BanCommand {
                 () -> "Banned by " + event.getUser().getName(), // used if getOption("reason") is null (not provided)
                 OptionMapping::getAsString); // used if getOption("reason") is not null (provided)
         try {
-            BannedUser bannedUser =new BannedUser(user.getName(), reason, event.getUser().getEffectiveName(),user.getName());
+            LocalDateTime bannedAt = LocalDateTime.now();
+            BannedUser bannedUser =new BannedUser(bannedAt, reason, event.getUser().getEffectiveName(),user.getName());
             bannedUserRepo.save(bannedUser) ;
         }
         catch (Exception e){

@@ -1,7 +1,7 @@
 package com.range.discordbot.configuration;
 
 import com.range.discordbot.listener.AutoUserBanner;
-import com.range.discordbot.service.SlashCommands;
+import com.range.discordbot.commands.SlashCommands;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.Permission;

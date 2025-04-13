@@ -27,7 +27,7 @@ public class AutoUserBanner extends ListenerAdapter {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private BannedUserRepo bannedUserRepo;
-    @Value(value = "${discord.bot.log.channelid}")
+    @Value(value = "${discord.bot.log.channel_id}")
     private String channelid;
 
     public AutoUserBanner(BannedUserRepo bannedUserRepo) {

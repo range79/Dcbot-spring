@@ -1,4 +1,4 @@
-package com.range.discordbot.service;
+package com.range.discordbot.commands;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

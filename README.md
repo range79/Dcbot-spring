@@ -37,6 +37,7 @@ A Discord bot built using [Spring Boot](https://spring.io/projects/spring-boot) 
        password: your_password
    discord:
      bot:
+       serverid:
        token: your_discord_bot_token
        log:
          channelid: your_log_channel_id
@@ -62,37 +63,58 @@ An admin panel feature will be added soon to allow management of bot settings an
 
 ## License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+**This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).**
 
-## Changelog
-
-
-`# Changelog
+# 📄 Changelog
 
 ## Version 0.0.1-SNAPSHOT
 
-- **🚫 Ban Command Added**: A new command allowing server administrators to ban users directly through the bot. This feature helps efficiently manage user behavior and swiftly remove problematic users from the server.
+- **🚫 Ban Command Added**  
+  Added a new command allowing server administrators to ban users directly through the bot. This feature helps efficiently manage user behavior and remove problematic users swiftly.
 
-- **🚪 Leave Bot From Server**: Added functionality for the bot to leave the server automatically, based on specific conditions or upon request. This is particularly useful for managing bot activity in inactive or unwanted servers.
+- **🚪 Leave Server Feature**  
+  Implemented functionality for the bot to leave a server automatically based on specific conditions or upon request. Useful for managing bot presence in inactive or unnecessary servers.
 
-- **🧹 Prune Command Added**: A command to delete multiple messages at once in a channel, helping moderators clean up chats quickly. The prune command can be customized to specify the number of messages to delete, improving moderation flexibility.
+- **🧹 Prune Command Added**  
+  A command to bulk-delete messages in a channel, assisting moderators in cleaning up chats. The command allows specifying the number of messages to delete for flexibility.
 
-- **🔓 Unban Command Added**: Introduced the ability for server administrators to reverse bans. While the feature is functional, some minor issues remain, which will be addressed in future updates.
+- **🔓 Unban Command (Beta)**  
+  Introduced the ability to reverse bans. While functional, minor issues remain and will be resolved in future versions.
 
 ---
 
 ## Version 1.0
 
-- **🔧 Unban Command Fixed**: The unban command has been fixed and is now working as expected. Server administrators can now reinstate banned users without any issues.
+- **🔧 Unban Command Fixed**  
+  Fixed all known issues with the unban command. It now works as expected, allowing admins to unban users smoothly.
 
-- **🔄 BannedUserJoinListener Class Renamed to AutoUserBan**: The `BannedUserJoinListener` class has been renamed to `AutoUserBan` for improved code clarity and readability. This class is responsible for banning users who attempt to rejoin the server after being banned.
+- **🧠 `BannedUserJoinListener` Renamed to `AutoUserBan`**  
+  Renamed for better clarity and code readability. The class automatically handles bans for returning users.
 
-- **🚫 AutoUserBan Class**:
-   - **🔒 Automatic Ban for Invited Banned Users**: The `AutoUserBan` class automatically bans users who have been previously banned and attempt to rejoin the server via invites. It ensures that banned users cannot bypass their ban and re-enter the server.
-   - **🚫 Prevents Ban Bypassing**: This feature prevents banned users from using invites to re-enter the server, adding an extra layer of protection against potential loopholes.
-   - **🛡️ Maintains Server Integrity**: The `AutoUserBan` class plays a crucial role in maintaining server integrity by preventing banned users from returning through invites, ensuring that the community is protected from disruptive individuals.
+- **🚫 AutoUserBan Enhancements**
+    - **🔒 Auto Ban on Invite**: Automatically bans previously banned users trying to rejoin via invite links.
+    - **🚫 Prevents Ban Evasion**: Adds an extra layer of security against ban bypass attempts.
+    - **🛡️ Server Protection**: Ensures a safe and consistent community by blocking re-entry of disruptive users.
 
-- **📜 Renamed `discord.bot.banneduser.channelid` to `discord.bot.log.channelid`**: The configuration setting `discord.bot.banneduser.channelid` has been renamed to `discord.bot.log.channelid` for better clarity. This change more accurately reflects the channel's role in logging events related to banned users.
+- **📜 Config Key Renamed**  
+  `discord.bot.banneduser.channelid` → `discord.bot.log.channelid` to reflect its purpose more accurately.
 
-- **ℹ️ Info Command Added**: A new "info" command has been introduced, providing detailed information about the bot, its version, and the developer team behind it. This command is helpful for users who wish to learn more about the bot's functionality and development.
-  
+- **ℹ️ Info Command Added**  
+  A command that displays information about the bot, including version, features, and developer details.
+
+---
+
+## Version 2.0
+
+- **📦 New Package Structure Introduced**
+    - `commands`: All command classes moved here for better organization.
+    - `controller`: Contains all controller classes.
+    - `dto`: Added DTO classes for data transfer between layers.
+    - `exception`: Centralized exception handling classes.
+    - `utils`: Added `DiscordGuildUtil` to help retrieve server users.
+
+- **🌐 UserController Added**  
+  New controller to expose user-related endpoints.
+
+- **🖼️ Thymeleaf Integrated**  
+  Added for rendering dynamic web views.(But l don't added frontend)
