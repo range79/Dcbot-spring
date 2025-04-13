@@ -23,7 +23,7 @@ A Discord bot built using [Spring Boot](https://spring.io/projects/spring-boot) 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/discord-bot.git
+   git clone https://github.com/range79/sprida.giy
    cd discord-bot
    ```
 
