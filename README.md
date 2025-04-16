@@ -37,10 +37,10 @@ A Discord bot built using [Spring Boot](https://spring.io/projects/spring-boot) 
        password: your_password
    discord:
      bot:
-       serverid:
+       server_id:
        token: your_discord_bot_token
        log:
-         channelid: your_log_channel_id
+         channel_id: your_log_channel_id
    ```
 
 3. Install dependencies:
@@ -118,3 +118,37 @@ An admin panel feature will be added soon to allow management of bot settings an
 
 - **🖼️ Thymeleaf Integrated**  
   Added for rendering dynamic web views.(But l don't added frontend)
+# Version 2.1 Changelog
+
+### New Features & Fixes:
+
+- **Info Command Fixed:**
+    - Added missing `break` in the switch statement, which was causing the bot to throw an error.
+
+- **Bot Configuration Refactor:**
+    - The bot's configuration class has been refactored into two separate classes for better organization and maintainability. Previously, the class was handling too many responsibilities, making it difficult to manage.
+    - Now, the configuration has been split into:
+        - One class for **initializing JDA**.
+        - Another class for **registering slash commands**.
+
+- **New Commands:**
+    - **ListBannedUsers** command added, which allows you to see the list of banned users.
+
+- **SlashCommands Refactor:**
+    - The **SlashCommands** class has been split into two parts. The original class had grown too large and was becoming difficult to manage.
+
+- **New Package Structure:**
+    - **Admin Package**: This package will contain commands that require admin privileges.
+    - **User Package**: This package will hold commands that are accessible to all users.
+    - **Configuration Package**: This package will store all slash command configurations, including command registration, routing, and event listeners.
+
+- **Application YAML Configuration:**
+    - Updated the application configuration to include versioning:
+      ```yaml
+      app:
+        version: "${version}" 
+      ```
+
+- **DiscordGuildUtil Refactor:**
+    - Added **`@Lazy`** annotation to the **DiscordGuildUtil** bean to resolve circular dependency issues and prevent the application from failing due to bean initialization cycles.
+

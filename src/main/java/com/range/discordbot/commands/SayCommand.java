@@ -6,8 +6,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class SayCommand {
 
-    public void execute(SlashCommandInteractionEvent event, String content)
+    public void execute(SlashCommandInteractionEvent event)
     {
-        event.reply(content).queue(); // This requires no permissions!
+        String message = event.getOption("text").getAsString();
+        if (message.isEmpty()){
+        event.reply(message).queue(); // This requires no permissions!
     }
+    }
+
+
 }

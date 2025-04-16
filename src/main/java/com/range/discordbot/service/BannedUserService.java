@@ -7,6 +7,6 @@ import java.util.List;
 public interface BannedUserService {
     void unbanUser(String tag);
     List<BannedUser> bannedUsers();
-    void banUser(String tag);
+    BannedUser banUser(String usertag, String reason);
 
 }

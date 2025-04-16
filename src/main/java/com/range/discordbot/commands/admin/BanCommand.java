@@ -1,4 +1,4 @@
-package com.range.discordbot.commands;
+package com.range.discordbot.commands.admin;
 
 import com.range.discordbot.model.BannedUser;
 import com.range.discordbot.repo.BannedUserRepo;
@@ -27,8 +27,15 @@ public class BanCommand {
     private String channelid;
 
 
-    public void execute(SlashCommandInteractionEvent event, User user, Member member)
+    public void execute(SlashCommandInteractionEvent event)
     {
+        Member member = event.getOption("user").getAsMember();
+        User user = event.getOption("user").getAsUser();
+        if (member == null) {
+            event.reply("User not found!").setEphemeral(true).queue();
+            return;
+        }
+
         event.deferReply(true).queue(); // Let the user know we received the command before doing anything else
         InteractionHook hook = event.getHook(); // This is a special webhook that allows you to send messages without having permissions in the channel and also allows ephemeral messages
         hook.setEphemeral(true); // All messages here will now be ephemeral implicitly
@@ -45,7 +52,7 @@ public class BanCommand {
             return;
         }
 
-        if (member != null && !selfMember.canInteract(member))
+        if (!selfMember.canInteract(member))
         {
             hook.sendMessage("This user is too powerful for me to ban.").queue();
             return;
@@ -61,6 +68,7 @@ public class BanCommand {
                 OptionMapping::getAsString); // used if getOption("reason") is not null (provided)
         try {
             LocalDateTime bannedAt = LocalDateTime.now();
+            log.info("User" + event.getUser().getAsTag() + " has banned at " + bannedAt);
             BannedUser bannedUser =new BannedUser(bannedAt, reason, event.getUser().getEffectiveName(),user.getName());
             bannedUserRepo.save(bannedUser) ;
         }
@@ -85,11 +93,6 @@ public class BanCommand {
 
                 })
                 .queue();
-
-
-
-
-
     }
 }
 

@@ -1,4 +1,4 @@
-package com.range.discordbot.commands;
+package com.range.discordbot.commands.admin;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;

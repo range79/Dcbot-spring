@@ -1,4 +1,4 @@
-package com.range.discordbot.commands;
+package com.range.discordbot.commands.admin;
 
 import com.range.discordbot.repo.BannedUserRepo;
 import jakarta.transaction.Transactional;
@@ -52,9 +52,6 @@ catch (Exception e){
     channel.sendMessage("Unban failed: "+e.getMessage()).queue();
 }
            }
-
-
-
     }
 
 }

@@ -2,15 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 group = 'com.range'
 version = '2.0'
-
-
-
-
-
 
 java {
     toolchain {
@@ -42,8 +38,18 @@ dependencies {
     implementation("net.dv8tion:JDA:5.3.2")
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation("org.slf4j:slf4j-api:2.0.17")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
+processResources {
+    filesMatching("application.yaml") {
+        expand(project.properties)
+    }
+
+}
+
