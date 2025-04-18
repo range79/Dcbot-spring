@@ -13,11 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class ServerUserDto {
+    /**
+     * This DTO is used for retrieving server user information,
+     * primarily for moderation purposes such as listing members,
+     * accessing their roles, tags, and other relevant details.
+     */
+
     private String id;
     private String username;
     private String userTag;
     private String avatarUrl;
     private List<String> role;
-
-
 }

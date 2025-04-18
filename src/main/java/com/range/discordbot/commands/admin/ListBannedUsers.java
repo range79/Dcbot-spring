@@ -16,7 +16,7 @@ public class ListBannedUsers {
 
  }
  public void execute(SlashCommandInteractionEvent event) {
-     if (event.getMember().hasPermission(Permission.KICK_MEMBERS))
+     if (!event.getMember().hasPermission(Permission.KICK_MEMBERS))
      {
          event.reply("You do not have permission to use this command!").queue();
      }

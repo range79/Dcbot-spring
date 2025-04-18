@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class UnBanCommand {
 
     private final BannedUserRepo bannedUserRepo;
-    private static Logger log = LoggerFactory.getLogger(UnBanCommand.class);
+    private static final Logger log = LoggerFactory.getLogger(UnBanCommand.class);
 
     @Value("${discord.bot.log.channel_id}")
     private String channelId;
@@ -38,20 +38,21 @@ public class UnBanCommand {
         }
         String getUser= event.getUser().getAsTag();
 
- Boolean bannedUser= bannedUserRepo.existsBannedUserByTag(name);
-   TextChannel channel = event.getGuild().getTextChannelById(channelId);
+        Boolean bannedUser= bannedUserRepo.existsBannedUserByTag(name);
+        TextChannel channel = event.getGuild().getTextChannelById(channelId);
 
-   if (bannedUser==true) {
+        if (bannedUser) {
 
-try{
+            try{
 
-    channel.sendMessage("Unbanned user"+name+" for reason: ").queue();
-    bannedUserRepo.deleteBannedUserByTag(name);
-}
-catch (Exception e){
-    channel.sendMessage("Unban failed: "+e.getMessage()).queue();
-}
-           }
+                channel.sendMessage("Unbanned user"+name+" for reason: ").queue();
+                log.info("Unbanned user "+name+" with slash command");
+                bannedUserRepo.deleteBannedUserByTag(name);
+            }
+            catch (Exception e){
+                channel.sendMessage("Unban failed: "+e.getMessage()).queue();
+            }
+        }
     }
 
 }

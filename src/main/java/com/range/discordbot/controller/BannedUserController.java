@@ -25,12 +25,12 @@ public class BannedUserController {
         bannedUserService.unbanUser(usertag);
     }
 
-    @GetMapping("/bannedUserS/all")
+    @GetMapping("/banned")
     public List<BannedUser> getAllBannedUsers() {
        return bannedUserService.bannedUsers();
     }
 
-    @PostMapping("/ban/user/{usertag}")
+    @PostMapping("/ban/{usertag}")
     public BannedUser banUser(@PathVariable String usertag,@RequestParam(required = false) String reason) {
       return bannedUserService.banUser(usertag,reason);
     }

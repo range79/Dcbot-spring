@@ -41,6 +41,8 @@ A Discord bot built using [Spring Boot](https://spring.io/projects/spring-boot) 
        token: your_discord_bot_token
        log:
          channel_id: your_log_channel_id
+   app:
+    version: "${version}"   
    ```
 
 3. Install dependencies:
@@ -151,4 +153,29 @@ An admin panel feature will be added soon to allow management of bot settings an
 
 - **DiscordGuildUtil Refactor:**
     - Added **`@Lazy`** annotation to the **DiscordGuildUtil** bean to resolve circular dependency issues and prevent the application from failing due to bean initialization cycles.
+
+### 📦 Version 2.2 – Enhancements & Refactors
+
+- ➕ **User Module Added**  
+  The new `user` package has been introduced.
+
+- 🧹 **PruneCommand Class Refactored**  
+  The `PruneCommand` class has been cleaned up and improved for better message deletion behavior.  
+  Permission check for `MESSAGE_MANAGE` was added to ensure only authorized users can use `/prune`.
+
+- 🗑️ **Removed `BannerUtil.kt`**  
+  The `BannerUtil.kt` class was removed due to being considered an unnecessary and ineffective implementation.
+
+- 🔄 **Updated Endpoints:**
+    - `users/bannedUserS/all` ➝ `users/banned`
+    - `users/ban/user/{tag}` ➝ `users/ban/{tag}`
+
+- 💾 **Ban Service Save Logic Fixed**  
+  The ban service now properly persists data to the repository.
+
+- 🛠️ **Logger Issue Fixed in `DiscordGuildUtil`**  
+  Logger setup has been corrected.
+
+- ❌ **Removed JDA from `DiscordGuildUtil` Constructor**  
+  The `JDA` dependency was removed from the constructor and will be explained in the README.
 

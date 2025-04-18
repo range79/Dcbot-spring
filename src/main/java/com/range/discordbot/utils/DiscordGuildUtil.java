@@ -18,20 +18,19 @@ import java.util.stream.Collectors;
 @Component
 @Lazy
 public class DiscordGuildUtil{
-    @Value(value = "${discord.bot.server_id}")
-    private  String serverId;
+
+
     private static final Logger log = LoggerFactory.getLogger(DiscordGuildUtil.class);
-    private final JDA jda;
-    public DiscordGuildUtil(JDA jda){
-        this.jda = jda;
+
+    private final Guild guild;
+    public DiscordGuildUtil(JDA jda,@Value("${discord.bot.server_id}")String serverId) {
+
+        this.guild = jda.getGuildById(serverId);
     }
     public List<ServerUserDto> getAllMembers() {
         // for getting guild  get server id
-        Guild guild = jda.getGuildById(serverId);
-        if (guild == null) {
-            // if guild not found throw an exception
-            log.error("Could not find guild with id {}", serverId);
-        }
+
+
         try {
             List<Member> members = guild.loadMembers().get();
             List<ServerUserDto> memberTags = new ArrayList<>();
@@ -66,10 +65,6 @@ public class DiscordGuildUtil{
     }
 
     public Member getUserById(String tag) {
-        Guild guild = jda.getGuildById(serverId);
-        if (guild == null) {
-            log.error("Could not find guild with id {}", serverId);
-        }
         try {
             return guild.getMemberByTag(tag);
         } catch (Exception e) {
@@ -77,9 +72,5 @@ public class DiscordGuildUtil{
             return null;
         }
     }
-
-
-
-
 }
 

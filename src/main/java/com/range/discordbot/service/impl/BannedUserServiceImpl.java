@@ -52,6 +52,7 @@ private final Logger log = LoggerFactory.getLogger(BannedUserServiceImpl.class);
      try {
       member.getGuild().ban(member, 0, TimeUnit.DAYS).queue(); // 0, banlama süresi (sonsuz)
       log.info("User "+usertag+" has been banned for reason: "+ reason);
+      bannedUserRepo.save(bannedUser);
       return bannedUser;
      } catch (Exception e) {
       log.error("Failed to ban user: {}", usertag);

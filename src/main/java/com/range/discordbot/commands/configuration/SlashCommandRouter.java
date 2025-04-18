@@ -1,12 +1,9 @@
 package com.range.discordbot.commands.configuration;
 
-import com.range.discordbot.commands.InfoCommand;
-import com.range.discordbot.commands.LeaveCommand;
-import com.range.discordbot.commands.SayCommand;
-import com.range.discordbot.commands.admin.BanCommand;
-import com.range.discordbot.commands.admin.ListBannedUsers;
-import com.range.discordbot.commands.admin.PruneCommand;
-import com.range.discordbot.commands.admin.UnBanCommand;
+
+import com.range.discordbot.commands.admin.*;
+import com.range.discordbot.commands.user.InfoCommand;
+import com.range.discordbot.commands.user.SayCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.springframework.stereotype.Component;
 
