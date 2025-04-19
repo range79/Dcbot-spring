@@ -120,7 +120,7 @@ An admin panel feature will be added soon to allow management of bot settings an
 
 - **🖼️ Thymeleaf Integrated**  
   Added for rendering dynamic web views.(But l don't added frontend)
-# Version 2.1 Changelog
+## Version 2.1 Changelog
 
 ### New Features & Fixes:
 
@@ -154,7 +154,7 @@ An admin panel feature will be added soon to allow management of bot settings an
 - **DiscordGuildUtil Refactor:**
     - Added **`@Lazy`** annotation to the **DiscordGuildUtil** bean to resolve circular dependency issues and prevent the application from failing due to bean initialization cycles.
 
-### 📦 Version 2.2 – Enhancements & Refactors
+## 📦 Version 2.2 – Enhancements & Refactors
 
 - ➕ **User Module Added**  
   The new `user` package has been introduced.
@@ -179,3 +179,9 @@ An admin panel feature will be added soon to allow management of bot settings an
 - ❌ **Removed JDA from `DiscordGuildUtil` Constructor**  
   The `JDA` dependency was removed from the constructor and will be explained in the README.
 
+## 📦 Version 2.2.1
+
+### 🔧 Refactoring & Improvements
+- 🛑 **Unban Command** (`admin/unban`) now uses `BannedUserService` instead of accessing the repository directly.
+- 📄 **JavaDoc Cleanup**: All documentation comments from `BannedUserServiceImpl` were moved to the interface for better clarity and consistency.
+- ℹ️ **Info Command**: Minor updates and cleanup were made for improved output and readability.

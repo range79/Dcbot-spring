@@ -34,7 +34,10 @@ public class AutoUserBanner extends ListenerAdapter {
         this.bannedUserRepo = bannedUserRepo;
     }
 
+    /**
 
+     * @param event
+     */
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
 

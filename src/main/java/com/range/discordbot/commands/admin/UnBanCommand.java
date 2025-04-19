@@ -1,6 +1,7 @@
 package com.range.discordbot.commands.admin;
 
 import com.range.discordbot.repo.BannedUserRepo;
+import com.range.discordbot.service.BannedUserService;
 import jakarta.transaction.Transactional;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -15,14 +16,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class UnBanCommand {
 
-    private final BannedUserRepo bannedUserRepo;
+    private final BannedUserService bannedUserService;
     private static final Logger log = LoggerFactory.getLogger(UnBanCommand.class);
 
     @Value("${discord.bot.log.channel_id}")
     private String channelId;
 
-    public UnBanCommand(BannedUserRepo bannedUserRepo) {
-        this.bannedUserRepo = bannedUserRepo;
+    public UnBanCommand(BannedUserService bannedUserService) {
+        this.bannedUserService = bannedUserService;
     }
     @Transactional
     public void execute(SlashCommandInteractionEvent event) {
@@ -38,7 +39,7 @@ public class UnBanCommand {
         }
         String getUser= event.getUser().getAsTag();
 
-        Boolean bannedUser= bannedUserRepo.existsBannedUserByTag(name);
+        Boolean bannedUser= bannedUserService.isBanned(getUser);
         TextChannel channel = event.getGuild().getTextChannelById(channelId);
 
         if (bannedUser) {
@@ -46,8 +47,8 @@ public class UnBanCommand {
             try{
 
                 channel.sendMessage("Unbanned user"+name+" for reason: ").queue();
-                log.info("Unbanned user "+name+" with slash command");
-                bannedUserRepo.deleteBannedUserByTag(name);
+                log.info("Unbanned user {} with slash command", name);
+                bannedUserService.unbanUser(name);
             }
             catch (Exception e){
                 channel.sendMessage("Unban failed: "+e.getMessage()).queue();
