@@ -1,6 +1,6 @@
 package com.range.discordbot.service;
 
-import com.range.discordbot.model.BannedUser;
+import com.range.discordbot.dao.model.BannedUser;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public interface BannedUserService {
      * @param reason  the reason for banning the user
      * @return the banned user object containing details of the ban
      */
-    BannedUser banUser(String usertag, String reason);
+    BannedUser banUser(String usertag, String reason,String serverId);
     /**
      * Checks if a user with the given tag exists in the repository.
      *

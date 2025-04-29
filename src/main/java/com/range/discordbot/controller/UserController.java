@@ -1,9 +1,7 @@
 package com.range.discordbot.controller;
 
 import com.range.discordbot.dto.ServerUserDto;
-import com.range.discordbot.utils.DiscordGuildUtil;
-import net.dv8tion.jda.api.JDA;
-
+import com.range.discordbot.service.impl.DiscordServerServiceImpl;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +12,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-private DiscordGuildUtil discordGuildUtil;
-    private final JDA jda;
-    public UserController(JDA jda,DiscordGuildUtil discordGuildUtil) {
-this.discordGuildUtil = discordGuildUtil;
-        this.jda = jda;
+    private final DiscordServerServiceImpl discordServerServiceImpl;
+
+    public UserController(DiscordServerServiceImpl discordServerServiceImpl) {
+        this.discordServerServiceImpl = discordServerServiceImpl;
+
     }
     @GetMapping("/all")
     public List<ServerUserDto> getAllUsers() {
-
-      return  discordGuildUtil.getAllMembers();
-
+        return  discordServerServiceImpl.getAllMembers();
     }
 
 }

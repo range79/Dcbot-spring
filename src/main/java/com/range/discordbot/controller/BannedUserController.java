@@ -1,13 +1,12 @@
 package com.range.discordbot.controller;
 
-import com.range.discordbot.model.BannedUser;
+import com.range.discordbot.dao.model.BannedUser;
+import com.range.discordbot.dto.BanUserRequest;
 import com.range.discordbot.service.BannedUserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping(name = "/users")
 public class BannedUserController {
@@ -27,12 +26,12 @@ public class BannedUserController {
 
     @GetMapping("/banned")
     public List<BannedUser> getAllBannedUsers() {
-       return bannedUserService.bannedUsers();
+        return bannedUserService.bannedUsers();
     }
 
     @PostMapping("/ban/{usertag}")
-    public BannedUser banUser(@PathVariable String usertag,@RequestParam(required = false) String reason) {
-      return bannedUserService.banUser(usertag,reason);
+    public BannedUser banUser(@PathVariable String usertag ,@RequestBody BanUserRequest banUserRequest
+    ) {
+        return bannedUserService.banUser(usertag, banUserRequest.getReason(), banUserRequest.getReason());
     }
-
 }
