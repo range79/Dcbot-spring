@@ -9,7 +9,6 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
 public class ServerInfo {
     @Id

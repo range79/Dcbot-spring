@@ -174,6 +174,61 @@
 - ServerController will be expanded.
 - The bot is aimed to reach a **final, stable version before military service**.
 
+
+
+
+
+Absolutely kanka! Here’s the **English version** of the `v4.0.0` release note — clean, powerful, and professional with just the right swagger:
+
+---
+
+## 🚀 Sprida v4.0.0 – *"A New Era Begins"*
+
+### 🔥 What’s New
+
+* ❌ **Refresh Token Removed**
+  We've removed the refresh token system entirely.
+  Simplicity wins — no more unnecessary token rotations or cookie complexity.
+
+* 🔐 **Custom Login Page Added**
+  Fully responsive login screen with a modern UI.
+  Integrated with Spring Security. Goodbye default login, hello elegance.
+
+* 🧑‍💼 **User Roles Introduced**
+  The system now recognizes two roles:
+
+  * `ADMIN`: Full permissions — can register servers, ban/unban users, etc.
+  * `MODERATOR`: Limited permissions — read-only for now (no server registration or banning), but future updates will expand its power.
+
+* 🧭 **Admin Panel is Live**
+
+  * View all users
+  * View & register servers
+  * Ban & unban users
+  * See banned user list
+  * Connected directly to live REST API
+
+* 🌗 **Dark / Light Mode Toggle**
+  A slick theme switcher in the top corner.
+  Switches instantly and remembers your preference across sessions via `localStorage`.
+
+---
+
+### ✅ Feature Summary
+
+| Feature         | Status        |
+| --------------- | ------------- |
+| Refresh Token   | ❌ Removed     |
+| Login System    | ✅ Added       |
+| Role Management | ✅ Active      |
+| Admin Panel     | ✅ Completed   |
+| Theme Toggle    | ✅ Implemented |
+
+
+> “Less complexity. More control. Refresh tokens are gone — Sprida is now cleaner and sharper.”
+> — **Range**
+
+
 ---
 
 ## 📣 Note

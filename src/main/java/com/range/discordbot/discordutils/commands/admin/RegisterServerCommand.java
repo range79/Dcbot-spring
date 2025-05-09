@@ -23,9 +23,7 @@ public class RegisterServerCommand {
     }
 
     public void execute(SlashCommandInteractionEvent event) {
-        if (!event.getName().equals("register-server")) {
-            return;
-        }
+
         if (!event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
             event.reply("❌ You don't have permission.").setEphemeral(true).queue();
             return;

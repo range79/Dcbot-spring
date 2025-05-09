@@ -19,7 +19,7 @@ import java.util.List;
 public interface ServerInfoService {
 
     /**
-     * @param serverInfo
+     * @param serverId
      * save server info to database
      */
     ServerInfo registerServer(String serverId);
@@ -33,6 +33,10 @@ public interface ServerInfoService {
      */
     ServerInfo getServerInfoByServerId(String serverId);
 
+    /**
+     * @return
+     get all serverinfos same time
+     */
     List<ServerInfo> getAllServers();
 
 

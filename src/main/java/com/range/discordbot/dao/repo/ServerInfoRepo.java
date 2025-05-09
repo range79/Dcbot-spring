@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ServerInfoRepo extends JpaRepository<ServerInfo, Long> {
     Optional <ServerInfo> findServerInfoByServerId(String serverId);
+
+
 }

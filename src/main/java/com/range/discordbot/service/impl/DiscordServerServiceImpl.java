@@ -1,6 +1,7 @@
 package com.range.discordbot.service.impl;
 
 import com.range.discordbot.dto.ServerUserDto;
+
 import com.range.discordbot.exception.ServerNotFoundException;
 import com.range.discordbot.service.DiscordServerService;
 import net.dv8tion.jda.api.JDA;

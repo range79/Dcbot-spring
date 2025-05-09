@@ -40,8 +40,7 @@ public class ServerInfoServiceImpl implements ServerInfoService {
 
     @Override
     public ServerInfo getServerInfoByServerId(String serverId) {
-        return serverInfoRepo.findServerInfoByServerId(serverId)
-                .orElseThrow(()->new RuntimeException("Server not found"));
+        return serverInfoRepo.findServerInfoByServerId(serverId).orElseThrow(() ->new RuntimeException("Server not found"));
     }
 
     @Override

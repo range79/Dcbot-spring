@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Panel</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .theme-toggle {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .theme-toggle input[type="checkbox"] {
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background: #555;
+            border-radius: 20px;
+            position: relative;
+            outline: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 2px;
+            left: 2px;
+            border-radius: 50%;
+            background: #fff;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle input[type="checkbox"]:checked {
+            background: #bbb;
+        }
+
+        .theme-toggle input[type="checkbox"]:checked::before {
+            transform: translateX(20px);
+        }
+
+        body.dark {
+            background: linear-gradient(135deg, #1f1f2f, #2d2d3f);
+            color: #fff;
+        }
+
+        body.dark .sidebar {
+            background-color: #252536;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.5);
+        }
+
+        body.dark .sidebar h2 {
+            color: #8fd4ff;
+        }
+
+        body.dark .sidebar ul li a {
+            color: #ddd;
+        }
+
+        body.dark .sidebar ul li a:hover {
+            color: #5c9eff;
+        }
+
+        body.dark header {
+            background-color: #32324a;
+        }
+
+        body.dark section {
+            background-color: #3b3b55;
+            box-shadow: 0 0 12px rgba(0,0,0,0.3);
+        }
+
+        body.dark section h2 {
+            color: #a3d9ff;
+        }
+
+        body.dark input,
+        body.dark button,
+        body.dark pre {
+            background-color: #222;
+            color: #fff;
+        }
+
+        body.dark button {
+            background-color: #5c9eff;
+        }
+
+        body.dark button:hover {
+            background-color: #3b7dd8;
+        }
+
+        body.light {
+            background: #f4f4f7;
+            color: #222;
+        }
+
+        body.light .sidebar {
+            background-color: #ffffff;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+        }
+
+        body.light .sidebar h2 {
+            color: #333;
+        }
+
+        body.light .sidebar ul li a {
+            color: #333;
+        }
+
+        body.light .sidebar ul li a:hover {
+            color: #007bff;
+        }
+
+        body.light header {
+            background-color: #e4e4e4;
+        }
+
+        body.light section {
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+        }
+
+        body.light section h2 {
+            color: #007bff;
+        }
+
+        body.light input,
+        body.light button,
+        body.light pre {
+            background-color: #fff;
+            color: #000;
+        }
+
+        body.light button {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        body.light button:hover {
+            background-color: #0056b3;
+        }
+
+        .sidebar {
+            width: 240px;
+            padding: 30px 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .main {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        header {
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        section {
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 8px 5px 16px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 200px;
+        }
+
+        button {
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        pre {
+            padding: 10px;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul>
+        <li><a href="#users">Users</a></li>
+        <li><a href="#servers">Servers</a></li>
+        <li><a href="#ban">Ban</a></li>
+        <li><a href="#unban">Unban</a></li>
+        <li><a href="#banned">Banned List</a></li>
+    </ul>
+</div>
+<div class="main">
+    <header>
+        <h1>Welcome, Admin!</h1>
+        <div class="theme-toggle">
+            <label for="themeSwitch">🌙 / ☀️</label>
+            <input type="checkbox" id="themeSwitch" />
+        </div>
+    </header>
+
+    <section id="users">
+        <h2>Get All Users</h2>
+        <button onclick="fetchData('/users/all', 'usersOutput')">Fetch Users</button>
+        <pre id="usersOutput"></pre>
+    </section>
+
+    <section id="servers">
+        <h2>Get All Servers</h2>
+        <button onclick="fetchData('/servers/all', 'serversOutput')">Fetch Servers</button>
+        <pre id="serversOutput"></pre>
+    </section>
+
+    <section>
+        <h2>Get Server Info</h2>
+        <input id="getServerId" placeholder="Server ID" />
+        <button onclick="fetchServerInfo()">Get Info</button>
+        <pre id="serverInfoOutput"></pre>
+    </section>
+
+    <section>
+        <h2>Register Server</h2>
+        <input id="registerServerId" placeholder="Server ID" />
+        <button onclick="registerServer()">Register</button>
+        <pre id="registerOutput"></pre>
+    </section>
+
+    <section id="ban">
+        <h2>Ban User</h2>
+        <input id="banUserTag" placeholder="User Tag" />
+        <input id="banReason" placeholder="Reason" />
+        <input id="banServerId" placeholder="Server ID" />
+        <button onclick="banUser()">Ban</button>
+        <pre id="banOutput"></pre>
+    </section>
+
+    <section id="unban">
+        <h2>Unban User</h2>
+        <input id="unbanUserTag" placeholder="User Tag" />
+        <button onclick="unbanUser()">Unban</button>
+        <pre id="unbanOutput"></pre>
+    </section>
+
+    <section id="banned">
+        <h2>Banned Users</h2>
+        <button onclick="fetchData('/banned', 'bannedOutput')">Fetch Banned Users</button>
+        <pre id="bannedOutput"></pre>
+    </section>
+</div>
+
+<script>
+    const baseUrl = "http://localhost:8080";
+
+    async function fetchData(endpoint, outputId) {
+        const res = await fetch(baseUrl + endpoint);
+        const data = await res.json();
+        document.getElementById(outputId).textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function fetchServerInfo() {
+        const id = document.getElementById("getServerId").value;
+        const res = await fetch(`${baseUrl}/servers/${encodeURIComponent(id)}`);
+        const data = await res.json();
+        document.getElementById("serverInfoOutput").textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function registerServer() {
+        const id = document.getElementById("registerServerId").value;
+        const res = await fetch(`${baseUrl}/servers/register-server/${encodeURIComponent(id)}`, {
+            method: 'POST'
+        });
+        const data = await res.json();
+        document.getElementById("registerOutput").textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function banUser() {
+        const tag = document.getElementById("banUserTag").value;
+        const reason = document.getElementById("banReason").value;
+        const serverId = document.getElementById("banServerId").value;
+
+        const body = JSON.stringify({ reason, serverId });
+        const res = await fetch(`${baseUrl}/ban/${encodeURIComponent(tag)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body
+        });
+        const data = await res.json();
+        document.getElementById("banOutput").textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function unbanUser() {
+        const tag = document.getElementById("unbanUserTag").value;
+        const res = await fetch(`${baseUrl}/unban/${encodeURIComponent(tag)}`, {
+            method: 'DELETE'
+        });
+        const text = await res.text();
+        document.getElementById("unbanOutput").textContent = text;
+    }
+
+    const themeToggle = document.getElementById('themeSwitch');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    document.body.classList.add(currentTheme);
+    themeToggle.checked = currentTheme === 'light';
+
+    themeToggle.addEventListener('change', () => {
+        const theme = themeToggle.checked ? 'light' : 'dark';
+        document.body.classList.remove('light', 'dark');
+        document.body.classList.add(theme);
+        localStorage.setItem('theme', theme);
+    });
+</script>
+</body>
+</html>

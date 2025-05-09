@@ -24,11 +24,14 @@ public ServerController(ServerInfoService serverInfoService) { this.serverInfoSe
      */
     @GetMapping("{id}")
     public ServerInfo getserverinfo(@PathVariable String id) {
+
         return  serverInfoService.getServerInfoByServerId(id);
+
     }
     @PostMapping("/register-server/{serverId}")
     public ServerInfo registerServer(@PathVariable String serverId) {
-    return  serverInfoService.registerServer(serverId);
+
+        return  serverInfoService.registerServer(serverId);
 
     }
 

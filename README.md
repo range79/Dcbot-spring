@@ -1,100 +1,120 @@
+
 # Sprida
 ## Discord Bot with Spring Boot and JDA
 
-A Discord bot built using [Spring Boot](https://spring.io/projects/spring-boot) and [JDA](https://github.com/DV8FromTheWorld/JDA), with PostgreSQL for data storage and Lombok for reduced boilerplate code.
+Sprida is a powerful and extendable Discord bot built using [Spring Boot](https://spring.io/projects/spring-boot) and [JDA](https://github.com/DV8FromTheWorld/JDA). It uses PostgreSQL for persistent storage and Lombok to minimize boilerplate code.
 
-## Features
+---
 
-- Custom commands for interacting with users.
-- PostgreSQL database integration for storing data.
-- Lombok to reduce boilerplate code in model and service layers.
-- Admin panel (coming soon) for managing bot configurations and interactions.
+## 🚀 Features
 
-## Setup
+- ✅ Custom commands for engaging with users
+- 🗄️ PostgreSQL database integration
+- 🧰 Lombok to reduce repetitive code
+- 🛠️ Admin panel (coming soon!) for bot configuration
+
+---
+
+## ⚙️ Setup
 
 ### Prerequisites
 
-- Java 11 or later
+- Java 11 or newer
 - [PostgreSQL](https://www.postgresql.org/)
 - [Gradle](https://gradle.org/)
+- Discord bot token
 
-### Installation
+---
 
-1. Clone the repository:
+### 🔧 Installation
+
+1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/range79/sprida.giy
-   cd discord-bot
-   ```
+   git clone https://github.com/range79/sprida.git
+   cd sprida
 
-2. Configure `application.yml` with your PostgreSQL and Discord bot details:
+
+2. **Configure `application.yml`:**
+
+   Create and update `src/main/resources/application.yml`:
 
    ```yaml
    spring:
      datasource:
        url: jdbc:postgresql://localhost:5432/dbname_in_compose_yaml
        username: your_username
-       password: your_password 
+       password: your_password
+
    discord:
      bot:
-       server_id:
+       server_id: your_server_id
        token: your_discord_bot_token
        log:
          channel_id: your_log_channel_id
-       allow-connect-other-servers: #true or false
+       allow-connect-other-servers: true
+
    app:
-    version: "${version}"   
+    version: "${version}"
+    admin-name: #admin name
+    admin-pass: # admin password
+    mod-name: # moderator name
+    mod-pass: # moderator password
    ```
-3. Generate a yaml file name compose.yaml
 
-```yaml
-version: '3.9'
+3. **(Optional) Use Docker Compose for PostgreSQL:**
 
-services:
+   Create a `compose.yaml` file in the root directory:
 
-  db:
-    image: postgres
-    restart: always
-    # set shared memory limit when using docker-compose
-    shm_size: 128mb
-    # or set shared memory limit when deploy via swarm stack
-    #volumes:
-    #  - type: tmpfs
-    #    target: /dev/shm
-    #    tmpfs:
-    #      size: 134217728 # 128*2^20 bytes = 128Mb
-    environment:
-      POSTGRES_USERNAME: What_you_want_make_ur_db_username
-      POSTGRES_PASSWORD: db_container_pass
-      POSTGRES_DB: db_name
-    ports:
-      - "5432:5432"
-```
+   ```yaml
+   version: '3.9'
 
+   services:
+     db:
+       image: postgres
+       restart: always
+       shm_size: 128mb
+       environment:
+         POSTGRES_USERNAME: your_username
+         POSTGRES_PASSWORD: your_password
+         POSTGRES_DB: dbname_in_compose_yaml
+       ports:
+         - "5432:5432"
+   ```
 
-
-
-
-3. Install dependencies:
+4. **Build the project:**
 
    ```bash
    ./gradlew build
    ```
 
-4. Run the bot:
+5. **Run the bot:**
 
    ```bash
    ./gradlew bootRun
    ```
 
-5. The bot will start and connect to Discord.
+6. 🎉 Your bot will start and connect to Discord!
 
-### Admin Panel (Coming Soon)
+---
 
-An admin panel feature will be added soon to allow management of bot settings and interactions through a web-based interface.
+## 🖥️ Admin Panel (Preview)
 
-## License
+| Dark Mode                        | Light Mode                        |
+| -------------------------------- | --------------------------------- |
+| ![](images/adminpanel-dark.png)  | ![](images/adminpanel-white.png)  |
+| ![](images/adminpanel-dark2.png) | ![](images/adminpanel-white2.png) |
+| ![](images/adminpanel-dark3.png) | ![](images/adminpanel-white3.png) |
 
-**This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).**
+---
 
-### [For changelog click here](CHANGELOG.md)
+## 📄 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+## 📌 [Changelog](CHANGELOG.md)
+
+For latest updates and changes, check out the [CHANGELOG.md](CHANGELOG.md).
+

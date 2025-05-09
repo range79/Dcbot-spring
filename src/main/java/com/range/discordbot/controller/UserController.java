@@ -12,15 +12,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     private final DiscordServerServiceImpl discordServerServiceImpl;
 
     public UserController(DiscordServerServiceImpl discordServerServiceImpl) {
+
         this.discordServerServiceImpl = discordServerServiceImpl;
 
     }
     @GetMapping("/all")
     public List<ServerUserDto> getAllUsers() {
+
         return  discordServerServiceImpl.getAllMembers();
+
     }
 
 }
