@@ -198,7 +198,7 @@ Absolutely kanka! Here’s the **English version** of the `v4.0.0` release note 
   The system now recognizes two roles:
 
   * `ADMIN`: Full permissions — can register servers, ban/unban users, etc.
-  * `MODERATOR`: Limited permissions — read-only for now (no server registration or banning), but future updates will expand its power.
+  * `MODERATOR`:  no server registration but other things are same  but future updates will expand its power.
 
 * 🧭 **Admin Panel is Live**
 
